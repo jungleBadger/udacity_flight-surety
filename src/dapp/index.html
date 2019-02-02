@@ -24,7 +24,16 @@
         <div id="display-wrapper" class="top-20">
         </div>
         <div class="row top-20">
-            <label class="form">Flight</label> <input type="text" id="flight-number"> <btn class="btn btn-primary" id="submit-oracle">Submit to Oracles</btn>
+            <label>
+                Flights
+                <select id="flights-selector">
+                </select>
+            </label>
+            <btn class="btn btn-primary" id="submit-oracle">Submit to Oracles</btn>
+            <div style="display: none;">
+                <label  class="form">Flight</label> <input type="text" id="flight-number">
+
+            </div>
         </div>
     </main>
 
