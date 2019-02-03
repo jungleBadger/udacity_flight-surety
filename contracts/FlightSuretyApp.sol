@@ -173,6 +173,7 @@ contract FlightSuretyApp {
 
     // Event fired each time an oracle submits a response
     event FlightStatusInfo(address airline, string flight, uint256 timestamp, uint8 status);
+    event CreditInsured(address passenger, string flight, uint256 amount);
 
     event OracleReport(address airline, string flight, uint256 timestamp, uint8 status);
 
@@ -345,9 +346,12 @@ contract FlightSuretyApp {
 
     function flightSuretyInfo(string flight) external returns(uint256){
         return flightSuretyData.flightSuretyInfo(msg.sender, flight);
-
     }
 
+    function creditInsurees(address passenger, string flight) external payable {
+        flightSuretyData.creditInsurees(passenger, flight);
+
+    }
 
     //endregion
 }
@@ -361,6 +365,8 @@ contract FlightSuretyData {
     function registerAirline(address airline, address owner) external {}
     function fund(address owner) public payable {}
     function buy(address passenger, string flight) public payable {}
+    function creditInsurees(address passenger, string flight) external payable{}
+
     function isAirline(address airline) external view returns(bool){}
     function getAirlineOwnership(address airline) external view returns(uint256){}
     function registerFlight(address airline, string flightId, uint256 timestamp) external {}

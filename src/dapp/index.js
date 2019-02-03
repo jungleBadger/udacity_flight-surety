@@ -8,6 +8,26 @@ import './flightsurety.css';
 
     let result = null;
 
+    let STATUS_CODES = [{
+        "label": "STATUS_CODE_UNKNOWN",
+        "code": 0
+    }, {
+        "label": "STATUS_CODE_ON_TIME",
+        "code": 10
+    }, {
+        "label": "STATUS_CODE_LATE_AIRLINE",
+        "code": 20
+    }, {
+        "label": "STATUS_CODE_LATE_WEATHER",
+        "code": 30
+    }, {
+        "label": "STATUS_CODE_LATE_TECHNICAL",
+        "code": 40
+    }, {
+        "label": "STATUS_CODE_LATE_OTHER",
+        "code": 50
+    }];
+
     let contract = new Contract('localhost', () => {
         // Read transaction
         contract.isOperational((error, result) => {
@@ -19,6 +39,7 @@ import './flightsurety.css';
 
 
         contract.flightSuretyApp.events.FlightStatusInfo({
+            fromBlock: "latest"
         }, function (error, result) {
             if (error) {
                 console.log(error)
@@ -27,7 +48,18 @@ import './flightsurety.css';
                 console.log(result.returnValues);
                 let els = document.querySelectorAll(`.${ btoa(result.returnValues.timestamp + result.returnValues.flight)}`);
                 console.log(els[els.length - 1]);
-                els[els.length - 1].querySelector(".results").innerText = result.returnValues.status === "10" ? "10 - On time" : `${result.returnValues.status} - Delayed`;
+                els[els.length - 1].querySelector(".results").innerText = result.returnValues.status === "10" ? "10 - On time" : `${result.returnValues.status} - ${STATUS_CODES.find(code => code.code == result.returnValues.status).label}`;
+            }
+        });
+
+
+        contract.flightSuretyData.events.CreditInsured({
+            fromBlock: "latest"
+        }, function (error, result) {
+            if (error) {
+                console.log(error)
+            } else {
+                alert(`Account ${result.returnValues.passenger} got refunded ${result.returnValues.amount} regarding flight ${result.returnValues.flight}`);
             }
         });
 

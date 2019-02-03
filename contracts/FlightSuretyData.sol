@@ -33,14 +33,15 @@ contract FlightSuretyData is Ownable {
         uint256 updatedTimestamp;
         address airline;
         string id;
+        bool hasBeenInsured;
     }
 
     mapping(address => uint8) authorizedCaller;
     mapping(address => Airline) airlines;   // All registered airlines
-    mapping(string => Flight) private flights;
-    mapping(address => uint256) funds;   // All registered airlines
-    mapping(bytes32 => uint256) flightSurety;   // All registered airlines
+    mapping(string => Flight) flights;
     mapping(string => address[]) flightInsurees;
+    mapping(address => uint256) funds;
+    mapping(bytes32 => uint256) flightSurety;
 
 
     /********************************************************************************************/
@@ -49,7 +50,7 @@ contract FlightSuretyData is Ownable {
 
     event AuthorizedCaller(address caller);
     event DeAuthorizedCaller(address caller);
-
+    event CreditInsured(address passenger, string flight, uint256 amount);
 
     event RegisterAirline   // Event fired when a new Airline is registered
     (
@@ -253,13 +254,13 @@ contract FlightSuretyData is Ownable {
     {
 
         require(airlines[airline].isRegistered, "Airline does not exists");
-
         flights[flightId] = Flight({
             isRegistered: true,
             statusCode: 0,
             updatedTimestamp: timestamp,
             airline: airline,
-            id: flightId
+            id: flightId,
+            hasBeenInsured: false
         });
 
         emit RegisterFlight(flightId);   // Log airline registration event
@@ -331,9 +332,10 @@ contract FlightSuretyData is Ownable {
 
         require(msg.value <= 1 ether, "Surety value cannot be higher than 1 ether");
         bytes32 key = keccak256(abi.encodePacked(passenger, flight));
+        require(!flights[flight].hasBeenInsured, "Surety has already been paid for this flight");
         require(flightSurety[key] <= 0, "Passenger already bought surety on this flight");
         flightSurety[key] = msg.value;
-        flightInsurees[flight].push(passenger);
+//        flightInsurees[flight].push(passenger);
     }
 
     /**
@@ -361,10 +363,41 @@ contract FlightSuretyData is Ownable {
     */
     function creditInsurees
                                 (
+                                address passenger,
+                                string flight
                                 )
                                 external
-                                pure
+                                payable
+                                requireIsCallerAuthorized
+                                requireIsOperational
     {
+
+
+        bytes32 key = keccak256(abi.encodePacked(passenger, flight));
+        uint256 currentFund = flightSurety[key];
+        require(currentFund > 0, "There is no value to refund");
+        uint256 creditRate = currentFund.div(2);
+        uint256 amountToCredit = currentFund.add(creditRate);
+        flightSurety[key] = amountToCredit;
+        emit CreditInsured(passenger, flight, amountToCredit);
+
+        //The snippet and validations below are regarding a fully functional app, considerating that all the flights are registered and not mocked up
+        // This will refund only the caller and will not control if it was not already funded or not
+
+//        require(flights[flight].isRegistered, "Flight does not exist");
+//        require(!flights[flight].hasBeenInsured, "Surety has already been paid for this flight");
+
+        //        address[] passengers = flights[flight].passengers;
+//        for (uint i = 0; i < passengers.length; i ++) {
+//            bytes32 key = keccak256(abi.encodePacked(passengers[i], flight));
+//            uint256 currentFund = flightSurety[key];
+//            uint256 creditRate = currentFund.div(2);
+//            uint256 amountToCredit = currentFund.add(creditRate);
+//            flightSurety[key] = amountToCredit;
+//            emit CreditInsured(passengers[i], flight, amountToCredit);
+//        }
+
+
     }
     
 
@@ -374,10 +407,24 @@ contract FlightSuretyData is Ownable {
     */
     function pay
                             (
+                            address passenger,
+                            string flight,
+                            uint256 amount
                             )
                             external
-                            pure
+                            payable
+                            requireIsCallerAuthorized
+                            requireIsOperational
     {
+
+        bytes32 key = keccak256(abi.encodePacked(passenger, flight));
+        uint256 value = flightSurety[key];
+
+        require(value >= amount, "There is no sufficient value to withdraw");
+
+        flightSurety[key] = 0;
+        passenger.transfer(amount);
+        flightSurety[key] = value.sub(amount);
     }
 
 

@@ -35,11 +35,6 @@ export default class Contract {
 
             let counter = 1;
 
-            //console.log(this.flightSuretyApp.events.FlightStatusInfo((err, data) => {
-               // console.log(err);
-               // console.log(data);
-            //}));
-
 
             this.airlines = await this.flightSuretyApp.methods.getActiveAirlines().call();
 
@@ -106,6 +101,7 @@ export default class Contract {
         }
 
         let processedValue = self.web3.utils.toWei(value);
+        console.log(options);
 
         self.flightSuretyApp.methods
             .buy(self.owner, options.flight)

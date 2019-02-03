@@ -1,3 +1,37 @@
+## General info
+
+### Environment: 
+* Truffle v5.0.2 (core: 5.0.2)
+* Solidity - ^0.4.24 (solc-js)
+* Node v8.11.1
+* Tested both on MAC OS and Windows 10
+* Rinkeby deploy info can be found on the `rinkeby-deloy.md` file
+* mnemonic: `candy maple cake sugar pudding cream honey rich smooth crumble sweet treat`
+
+
+### Flow
+* Upon a contract deploy `truffle migrate` an Airline will be built on FlightSuretyData constructor
+* Upon a server start `npm run server` this same airline will be funded and ready to operate along with connecting through the Oracle system
+* Upon a client start `npm run dapp` five (5) flights will be created on the fly taking consideration of the previously added `airline`. The UI provides option to: `Consult oracles about a flight` and `Buy surety to a Flight limiting the value from 0.1 to 1 ether`
+* Some test cases were implemented to validate some edge cases `truffle test`
+
+### Notes
+
+#### Dapp
+I know the UX could be A LOT improved like using proper UI instead of alerts and so on. But the timeframe for delivering the projects was being reached and there was the challenge of codding on a different structure and style, so I needed to deal with resulting in a more Proof of Concept solution and not a end user deliverable.
+
+### Server
+I've enjoyed working with node.js and this project, but for the same reason as the Dapp, I could not spend time modularizating and importing things as they should. There was a babel issue impeding me for using async/await. As the workload was huge for me I've worked with promises instead.
+
+### Passengers
+I've found some difficult implementing the last two functions, `pay` and `creditInsurees` due to the reason the flights were mocked up, and I never found a decent way to controlling who passengers have bought and who of them were already paied, so I've just kept it simple and the caller was ensured if he has rights to do so upon an Oracle evnt. Again, I know this logic could be a lot improved for reaching a real world implementation, but I kept with the POC.
+
+### Airlines
+I've extensively tried to create test cases and best practices on them, but I'm aware that there is a lot to improve yet
+
+
+## Step by step check out
+
 ### Separation of Concerns, Operational Control and “Fail Fast”
 1. Smart Contract Seperation - Smart Contract code is separated into multiple contracts:
 	> FlightSuretyData contains the structs and persistence logic / FlightSuretyApp contains encapsulations and validations; It is exposed to use. 
@@ -41,13 +75,13 @@
 	> This is implemented through a require on `buy` function within the `FlightSuretyApp` contract. Test cases are implemented to ensure this behavior `((flight) passenger can buy more than 1 ether on surety for a flight - l. 189)`
 	
 3. Passenger Repayment - If flight is delayed due to airline fault, passenger receives credit of 1.5X the amount they paid
-	> tbd
+	> This is implemented through the `creditInsurees` function on `FlightSuretyData line 364`. I've tried to divide the current paid amount and then adding it to the previous value, since SafeMath work with integers I've tried this approach
 	                         
 4. Passenger Withdraw - Passenger can withdraw any funds owed to them as a result of receiving credit for insurance payout
-	> tbd
+	> This is implemented through the `pay` function on the `FlightSuretyData` contract. In a more complete application, it would have some kind of iteration between insurees and assigning the value for all of them. Ive limited the scope to the caller due to the timeline.
 	
 5. Insurance Payouts - Insurance payouts are not sent directly to passenger’s wallet
-	> tbd
+	> This is implemented through the `creditInsurees` which the funds got binded to the user data instead of the wallet.
 
 ### Oracles (Server App)
 1. Functioning Oracle - Oracle functionality is implemented in the server app.
@@ -63,3 +97,8 @@
 Server will loop through all registered oracles, identify those oracles for which the OracleRequest event applies, and respond by calling into FlightSuretyApp contract with random status code of Unknown (0), On Time (10) or Late Airline (20), Late Weather (30), Late Technical (40), or Late Other (50)
 	> This can be observed at `server.js line 125`, and its implementation was based on the previously existent test on `test/oracle.js`. A simple console.log of (`"found"` ) is implemented to indicate when an Oracle got assigned to respond. The random Status code assignment can be noticed when the oracle detects a discrepancy on the timestamp and assign a random status code index within the delayed range to be assigned to the response	
    
+   
+   
+   
+ 
+

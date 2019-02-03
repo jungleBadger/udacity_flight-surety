@@ -125,7 +125,7 @@ initAccounts().then(accounts => {
     initOracles(accounts).then(oracles => {
 
         flightSuretyApp.events.OracleRequest({
-            fromBlock: 0
+            fromBlock: "latest"
         }, function (error, event) {
             if (error) {
                 console.log(error)
@@ -139,7 +139,9 @@ initAccounts().then(accounts => {
             let scheduledTime = (timestamp * 1000);
             console.log(`Flight scheduled to: ${new Date(scheduledTime)}`);
             if (scheduledTime < Date.now()) {
-                selectedCode = STATUS_CODES[assignRandomIndex(2, STATUS_CODES.length - 1)];
+                //disabled to better debugging
+                // selectedCode = STATUS_CODES[assignRandomIndex(2, STATUS_CODES.length - 1)];
+                selectedCode = STATUS_CODES[2];
             }
 
             oracles.forEach((oracle, index) => {
@@ -151,13 +153,15 @@ initAccounts().then(accounts => {
                         break;
                     }
                     if (selectedCode.code === 20) {
-                        flightSuretyApp.methods.submitOracleResponse(
-                            oracle[idx], airline, flight, timestamp, selectedCode.code
+                        console.log("WILL COVER USERS");
+                        flightSuretyApp.methods.creditInsurees(
+                            accounts[index],
+                            flight
                         ).send({
                             from: accounts[index]
                         }).then(result => {
-                            found = true;
-                            console.log(`Oracle: ${oracle[idx]} responded from flight ${flight} with status ${selectedCode.code} - ${selectedCode.label}`);
+                            console.log(result);
+                            console.log(`Flight ${flight} got covered and insured the users`);
                         }).catch(err => {
                             console.log(err.message);
                         });
