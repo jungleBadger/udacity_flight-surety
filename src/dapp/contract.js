@@ -11,7 +11,7 @@ export default class Contract {
     constructor(network, callback) {
 
         let config = Config[network];
-        this.web3 = new Web3(new Web3.providers.HttpProvider(config.url));
+        this.web3 = new Web3(new Web3.providers.WebsocketProvider(config.url));
         this.flightSuretyApp = new this.web3.eth.Contract(FlightSuretyApp.abi, config.appAddress, config.dataAddress);
         this.flightSuretyData = new this.web3.eth.Contract(FlightSuretyData.abi, config.dataAddress);
         this.initialize(callback);
@@ -32,6 +32,7 @@ export default class Contract {
             await this.flightSuretyData.methods.authorizeCaller(this.x).send({
                 "from": this.owner
             });
+
             let counter = 1;
 
             //console.log(this.flightSuretyApp.events.FlightStatusInfo((err, data) => {
@@ -39,7 +40,13 @@ export default class Contract {
                // console.log(data);
             //}));
 
+
             this.airlines = await this.flightSuretyApp.methods.getActiveAirlines().call();
+
+            if (!this.airlines || !this.airlines.length) {
+                alert("There is no airline available");
+
+            }
 
             for (let i = 0; i < 5; i += 1) {
                 this.flights.push({
@@ -48,6 +55,12 @@ export default class Contract {
                     timestamp: randomDate(new Date(), new Date(Date.now() + 1000 * 60 * 60 * 2))
                 })
             }
+
+            this.flights.push({
+                airline: self.airlines[0],
+                flight: "Flight X",
+                timestamp: new Date(Date.now() - 100000)
+            })
 
             while(this.passengers.length < 5) {
                 this.passengers.push(accts[counter++]);
@@ -67,19 +80,38 @@ export default class Contract {
     }
 
     fetchFlightStatus(flight, callback) {
-        console.log(flight);
-        console.log(" ASPODKOPASD")
         let self = this;
         let payload = {
             airline: flight.airline,
             flight: flight.flight,
             timestamp: Math.floor(new Date(flight.timestamp).getTime() / 1000)
-        }
+        };
 
         self.flightSuretyApp.methods
             .fetchFlightStatus(payload.airline, payload.flight, payload.timestamp)
             .send({ from: self.owner}, (error, result) => {
                 callback(error, payload);
             });
+    }
+
+    buy(options, callback) {
+        let self = this;
+        let value = document.querySelector("#valueStep").value;
+        if (!value) {
+            return;
+        }
+        if (value > 1) {
+            document.querySelector("#valueStep").value = 1;
+            value = 1;
+        }
+
+        let processedValue = self.web3.utils.toWei(value);
+
+        self.flightSuretyApp.methods
+            .buy(self.owner, options.flight)
+            .send({ from: self.owner, value: processedValue}, (error, result) => {
+                callback(error ? error.message : `User ${self.owner} paid ${processedValue} on flight's ${options.flight} surety`, options);
+            });
+
     }
 }

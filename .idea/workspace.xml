@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/dapp/index.js" line="27" />
+    <bookmark url="file://$PROJECT_DIR$/contracts/FlightSuretyApp.sol" line="346" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c3a18e3e-fd83-43ef-a4d6-0cacfa3194fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/config/testConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/testConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contracts/FlightSuretyApp.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/FlightSuretyApp.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contracts/FlightSuretyData.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/FlightSuretyData.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/2_deploy_contracts.js" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/2_deploy_contracts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dapp/contract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/dapp/contract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dapp/dom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/dapp/dom.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/dapp/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dapp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/dapp/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/step.md" beforeDir="false" afterPath="$PROJECT_DIR$/step.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/flightSurety.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/flightSurety.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/oracles.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/oracles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/truffle.js" beforeDir="false" afterPath="$PROJECT_DIR$/truffle-config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,21 +27,155 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LICENSE">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/src/dapp/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="37" column="89" selection-start-line="37" selection-start-column="77" selection-end-line="37" selection-end-column="89" />
+              <folding>
+                <element signature="n#style#0;n#button#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#label#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dapp/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="366">
+              <caret line="50" column="24" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/step.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="490">
+                <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/flightSurety.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="188" column="75" lean-forward="true" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dapp/contract.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="394">
+              <caret line="111" column="60" selection-start-line="109" selection-start-column="5" selection-end-line="111" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#73#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/contracts/FlightSuretyApp.sol">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="427">
+              <caret line="362" column="16" selection-start-line="362" selection-start-column="13" selection-end-line="362" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dapp/config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="66" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/contracts/FlightSuretyData.sol">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="501">
+              <caret line="326" column="36" lean-forward="true" selection-start-line="326" selection-start-column="36" selection-end-line="326" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/server/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="162" column="27" selection-start-line="162" selection-start-column="27" selection-end-line="162" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#73#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/migrations/2_deploy_contracts.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>.then</find>
+      <find>initAccounts</find>
+      <find>evet</find>
+      <find>FLightStatusI</find>
+      <find>FlightStatusInfo</find>
+      <find>keccak256</find>
+      <find>registerAir</find>
+      <find>submiot</find>
+      <find>accounts</find>
+      <find>acc</find>
+      <find>append</find>
+      <find>web3</find>
+      <find>flightSurety</find>
+      <find>requireIsCallerAuthorized</find>
+      <find>send</find>
+      <find>try</find>
+      <find>requireIsOperational</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/dapp/config.json" />
+        <option value="$PROJECT_DIR$/truffle-config.js" />
+        <option value="$PROJECT_DIR$/src/dapp/index.html" />
+        <option value="$PROJECT_DIR$/migrations/2_deploy_contracts.js" />
+        <option value="$PROJECT_DIR$/src/dapp/index.js" />
+        <option value="$PROJECT_DIR$/src/dapp/contract.js" />
+        <option value="$PROJECT_DIR$/contracts/FlightSuretyApp.sol" />
+        <option value="$PROJECT_DIR$/test/flightSurety.js" />
+        <option value="$PROJECT_DIR$/step.md" />
+        <option value="$PROJECT_DIR$/src/server/server.js" />
+        <option value="$PROJECT_DIR$/contracts/FlightSuretyData.sol" />
+      </list>
+    </option>
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
@@ -72,6 +207,43 @@
             <path>
               <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
               <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="contracts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flightSuretyUpdt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flightSuretyUpdt" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -113,15 +285,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1549142546957</updated>
-      <workItem from="1549142548466" duration="309000" />
+      <workItem from="1549142548466" duration="6078000" />
+      <workItem from="1549165646267" duration="4256000" />
+      <workItem from="1549193311919" duration="7745000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="309000" />
+    <option name="totallyTimeSpent" value="18079000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="22" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4958084" visible="true" weight="0.13804004" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -130,14 +305,14 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" x="1" y="463" width="912" height="190" id="Run" order="2" sideWeight="0.5390625" side_tool="true" visible="true" weight="0.30115426" />
+      <window_info anchor="bottom" x="1" y="463" width="912" height="190" id="Run" order="2" sideWeight="0.5390625" side_tool="true" weight="0.30115426" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49791667" weight="0.39874083" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32944915" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50986844" side_tool="true" weight="0.20127119" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4975912" weight="0.32838982" />
-      <window_info active="true" anchor="bottom" x="0" y="363" width="1920" height="350" id="Terminal" order="9" sideWeight="0.4609375" visible="true" weight="0.30010718" />
+      <window_info active="true" anchor="bottom" x="0" y="363" width="1920" height="350" id="Terminal" order="9" sideWeight="0.4609375" visible="true" weight="0.29689175" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -153,6 +328,113 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/truffle-config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="50" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.server.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.dapp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dapp/dom.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/testConfig.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dapp/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="66" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/2_deploy_contracts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dapp/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="37" column="89" selection-start-line="37" selection-start-column="77" selection-end-line="37" selection-end-column="89" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#label#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dapp/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="50" column="24" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dapp/contract.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="111" column="60" selection-start-line="109" selection-start-column="5" selection-end-line="111" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/flightSurety.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="188" column="75" lean-forward="true" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/step.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="490">
+            <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/FlightSuretyApp.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="362" column="16" selection-start-line="362" selection-start-column="13" selection-end-line="362" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="162" column="27" selection-start-line="162" selection-start-column="27" selection-end-line="162" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/FlightSuretyData.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="326" column="36" lean-forward="true" selection-start-line="326" selection-start-column="36" selection-end-line="326" selection-end-column="36" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

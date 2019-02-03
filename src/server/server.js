@@ -9,6 +9,7 @@ let flightSuretyApp = new web3.eth.Contract(FlightSuretyApp.abi, config.appAddre
 let flightSuretyData = new web3.eth.Contract(FlightSuretyData.abi, config.dataAddress);
 
 
+
 let STATUS_CODES = [{
     "label": "STATUS_CODE_UNKNOWN",
     "code": 0
@@ -28,6 +29,10 @@ let STATUS_CODES = [{
     "label": "STATUS_CODE_LATE_OTHER",
     "code": 50
 }];
+
+function assignRandomIndex(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
 function authorizeCaller(caller) {
@@ -60,14 +65,16 @@ function initAccounts() {
                 }).then(() => {
                     initREST();
                     console.log("funds added");
+
                 }).catch(err => {
 
                     console.log("Error funding the first account");
                     console.log(err.message);
-                    reject(err);
+                }).then(() => {
+                    resolve(accounts);
+
                 });
 
-                resolve(accounts);
             }).catch(err => {
                 console.log(err.message);
                 reject(err);
@@ -114,20 +121,8 @@ function initOracles(accounts) {
 }
 
 initAccounts().then(accounts => {
+
     initOracles(accounts).then(oracles => {
-
-
-        flightSuretyApp.events.FlightStatusInfo({
-            fromBlock: 0
-        }, function (error, result) {
-            if (error) {
-                console.log(error)
-            } else {
-                console.log("Flight status info received");
-                console.log(result.returnValues);
-            }
-        });
-
 
         flightSuretyApp.events.OracleRequest({
             fromBlock: 0
@@ -144,7 +139,7 @@ initAccounts().then(accounts => {
             let scheduledTime = (timestamp * 1000);
             console.log(`Flight scheduled to: ${new Date(scheduledTime)}`);
             if (scheduledTime < Date.now()) {
-                selectedCode = STATUS_CODES[2];
+                selectedCode = STATUS_CODES[assignRandomIndex(2, STATUS_CODES.length - 1)];
             }
 
             oracles.forEach((oracle, index) => {
@@ -154,6 +149,18 @@ initAccounts().then(accounts => {
                 for(let idx = 0; idx < 3; idx += 1) {
                     if (found) {
                         break;
+                    }
+                    if (selectedCode.code === 20) {
+                        flightSuretyApp.methods.submitOracleResponse(
+                            oracle[idx], airline, flight, timestamp, selectedCode.code
+                        ).send({
+                            from: accounts[index]
+                        }).then(result => {
+                            found = true;
+                            console.log(`Oracle: ${oracle[idx]} responded from flight ${flight} with status ${selectedCode.code} - ${selectedCode.label}`);
+                        }).catch(err => {
+                            console.log(err.message);
+                        });
                     }
                     flightSuretyApp.methods.submitOracleResponse(
                         oracle[idx], airline, flight, timestamp, selectedCode.code
@@ -168,7 +175,11 @@ initAccounts().then(accounts => {
                 }
             });
         });
+    }).catch(err => {
+        console.log(err.message);
     });
+}).catch(err => {
+    console.log(err.message);
 });
 
 const app = express();

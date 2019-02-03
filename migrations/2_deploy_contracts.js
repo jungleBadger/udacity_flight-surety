@@ -12,7 +12,7 @@ module.exports = function(deployer) {
                 .then(async () => {
                     let config = {
                         localhost: {
-                            url: 'http://localhost:8545',
+                            url: 'ws://localhost:8545',
                             dataAddress: FlightSuretyData.address,
                             appAddress: FlightSuretyApp.address
                         }

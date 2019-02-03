@@ -339,6 +339,15 @@ contract FlightSuretyApp {
         return flightSuretyData.setTestingMode(mode);
     }
 
+    function buy(address passenger, string flight) external payable {
+        flightSuretyData.buy.value(msg.value)(passenger, flight);
+    }
+
+    function flightSuretyInfo(string flight) external returns(uint256){
+        return flightSuretyData.flightSuretyInfo(msg.sender, flight);
+
+    }
+
 
     //endregion
 }
@@ -351,8 +360,10 @@ contract FlightSuretyData {
     function getActiveAirlines() external view returns(address[]){}
     function registerAirline(address airline, address owner) external {}
     function fund(address owner) public payable {}
+    function buy(address passenger, string flight) public payable {}
     function isAirline(address airline) external view returns(bool){}
     function getAirlineOwnership(address airline) external view returns(uint256){}
     function registerFlight(address airline, string flightId, uint256 timestamp) external {}
     function setTestingMode(bool mode) external {}
+    function flightSuretyInfo(address passenger, string flight) external returns(uint256){}
 }

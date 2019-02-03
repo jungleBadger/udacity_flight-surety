@@ -18,16 +18,42 @@ import './flightsurety.css';
         });
 
 
+        contract.flightSuretyApp.events.FlightStatusInfo({
+        }, function (error, result) {
+            if (error) {
+                console.log(error)
+            } else {
+                console.log("Flight status info received");
+                console.log(result.returnValues);
+                let els = document.querySelectorAll(`.${ btoa(result.returnValues.timestamp + result.returnValues.flight)}`);
+                console.log(els[els.length - 1]);
+                els[els.length - 1].querySelector(".results").innerText = result.returnValues.status === "10" ? "10 - On time" : `${result.returnValues.status} - Delayed`;
+            }
+        });
+
+
+
         // User-submitted transaction
         DOM.elid('submit-oracle').addEventListener('click', () => {
             // I know this manipulation is not safe nor recommended, but it just to make it to work now
             let flight = JSON.parse(document.querySelector('#flights-selector').value);
-            console.log(flight);
             // Write transaction
             contract.fetchFlightStatus(flight, (error, result) => {
-                display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp} ]);
+                display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + `Requested at ${new Date().toLocaleString()}`} ], btoa(result.timestamp + result.flight));
             });
-        })
+        });
+
+        // User-submitted transaction
+        DOM.elid('buyInsurance').addEventListener('click', () => {
+            // I know this manipulation is not safe nor recommended, but it just to make it to work now
+            let flight = JSON.parse(document.querySelector('#flights-selector').value);
+
+            contract.buy({
+                "flight": flight.flight
+            }, (error, result) => {
+                alert(error || result);
+            });
+        });
     
     });
     
@@ -43,17 +69,18 @@ function displayList(flight, parentEl) {
     parentEl.add(el);
 }
 
-function display(title, description, results) {
+function display(title, description, results, customClass = null) {
     let displayDiv = DOM.elid("display-wrapper");
     let section = DOM.section();
     section.appendChild(DOM.h2(title));
     section.appendChild(DOM.h5(description));
     results.map((result) => {
-        let row = section.appendChild(DOM.div({className:'row'}));
-        row.appendChild(DOM.div({className: 'col-sm-4 field'}, result.label));
-        row.appendChild(DOM.div({className: 'col-sm-8 field-value'}, result.error ? String(result.error) : String(result.value)));
+        let row = section.appendChild(DOM.div({className:'row ' + customClass}));
+        row.appendChild(DOM.div({className: 'col-sm-3 field'}, result.label));
+        row.appendChild(DOM.div({className: 'col-sm-7 field-value'}, result.error ? String(result.error) : String(result.value)));
+        row.appendChild(DOM.div({className: 'col-sm-2 results'}, customClass ? "Fetching status" : ""));
         section.appendChild(row);
-    })
+    });
     displayDiv.append(section);
 
 }

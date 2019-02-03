@@ -1,7 +1,7 @@
 
 var Test = require('../config/testConfig.js');
 var BigNumber = require('bignumber.js');
-
+var sharedFlight = `Flight ${Date.now()}`;
 contract('Flight Surety Tests', async (accounts) => {
 
     var config;
@@ -13,6 +13,8 @@ contract('Flight Surety Tests', async (accounts) => {
     /****************************************************************************************/
     /* Operations and Settings                                                              */
     /****************************************************************************************/
+
+
 
     it(`(multiparty) has correct initial isOperational() value`, async function () {
 
@@ -183,6 +185,54 @@ contract('Flight Surety Tests', async (accounts) => {
         assert.equal(result && result2, true, "Airline should not be able to register another airline if it hasn't provided funding");
 
     });
+
+    it(`(flight) passenger can buy more than 1 ether on surety for a flight`, async function () {
+
+        let sharedFlight = "DummyFlight";
+        // Get operating status
+
+        let errored = false;
+
+        try {
+            await config.flightSuretyApp.buy.sendTransaction(accounts[9], sharedFlight, { from: accounts[9], value: 100000000000000000000000});
+        }
+        catch(e) {
+            errored = true;
+        }
+
+        assert.equal(errored, true, "Surety value has not changed");
+    });
+
+
+
+    it(`(flight) passenger can buy surety for a flight`, async function () {
+
+        // Get operating status
+
+        config.flightSuretyApp.buy.sendTransaction(accounts[9], sharedFlight, { from: accounts[9], value: 1000000000});
+
+
+        let confirmation = await config.flightSuretyApp.flightSuretyInfo.call(sharedFlight, {"from": accounts[9]});
+        console.log(confirmation.toString());
+        assert.equal(confirmation, 1000000000, "Surety was not purchased successfully");
+
+    });
+
+    it(`(flight) passenger can not buy twice a surety for a flight`, async function () {
+        // Get operating status
+
+        let errored = false;
+        try {
+            await config.flightSuretyApp.buy.sendTransaction(accounts[9], sharedFlight, { from: accounts[9], value: 1000000000});
+        }
+        catch(e) {
+            errored = true;
+        }
+
+        assert.equal(errored, true, "Surety value has not changed");
+
+    });
+
 
 
 

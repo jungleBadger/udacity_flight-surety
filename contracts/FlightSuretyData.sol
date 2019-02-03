@@ -39,6 +39,9 @@ contract FlightSuretyData is Ownable {
     mapping(address => Airline) airlines;   // All registered airlines
     mapping(string => Flight) private flights;
     mapping(address => uint256) funds;   // All registered airlines
+    mapping(bytes32 => uint256) flightSurety;   // All registered airlines
+    mapping(string => address[]) flightInsurees;
+
 
     /********************************************************************************************/
     /*                                       EVENT DEFINITIONS                                  */
@@ -317,12 +320,40 @@ contract FlightSuretyData is Ownable {
      *
      */
     function buy
-                            (                             
+                            (
+                                address passenger,
+                                string flight
                             )
                             external
                             payable
+                            requireIsOperational
     {
 
+        require(msg.value <= 1 ether, "Surety value cannot be higher than 1 ether");
+        bytes32 key = keccak256(abi.encodePacked(passenger, flight));
+        require(flightSurety[key] <= 0, "Passenger already bought surety on this flight");
+        flightSurety[key] = msg.value;
+        flightInsurees[flight].push(passenger);
+    }
+
+    /**
+     * @dev Get flightSurety info
+     *
+     */
+    function flightSuretyInfo
+                            (
+                                address passenger,
+                                string flight
+                            )
+                            external
+                            requireIsCallerAuthorized
+                            requireIsOperational
+                            returns(uint256)
+    {
+
+        bytes32 key = keccak256(abi.encodePacked(passenger, flight));
+        require(flightSurety[key] > 0, "Passenger does not have surety for this flight");
+        return flightSurety[key];
     }
 
     /**

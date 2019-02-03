@@ -6,10 +6,10 @@
 	> Boilerplate is up and running upon ` npm run dapp` execution.
 	
 	2.1 Passenger can purchase insurance for flight
-	> TBD
+	> Users can buy tickets and it is demonstrated through the `buy - contract.js line 97` function, which is triggered from the buySurety button click on UI, an window.alert will carry on details of the transaction (I know this can be drastically improved from the UX point of view) 
 	
 	2.2 Trigger contract to request flight status update
-	> This event can be triggered by pressing the button on the UI, this will trigger the function `fetchFlightStatus - line 69 contract.js` which will gather the current selected from the dropdown and call the function with the parameters. 
+	> This event can be triggered by pressing the button on the UI, this will trigger the function `fetchFlightStatus - line 69 contract.js` which will gather the current selected from the dropdown and call the function with the parameters. The `FlightStatusInfo` event handler will update UI accordingly to the given request upon an Oracle response 
 
 3. Oracle Server Application - A server app has been created for simulating oracle behavior. Server can be launched with “npm run server”
 	> Server is available upon `npm run server` execution
@@ -38,7 +38,7 @@
 	> The five available airlines are mocked up and created at the frontend bootstrapping. The airline is a valid registered airline and is funded
 
 2. Passenger Payment - Passengers may pay up to 1 ether for purchasing flight insurance.
-	> tbd
+	> This is implemented through a require on `buy` function within the `FlightSuretyApp` contract. Test cases are implemented to ensure this behavior `((flight) passenger can buy more than 1 ether on surety for a flight - l. 189)`
 	
 3. Passenger Repayment - If flight is delayed due to airline fault, passenger receives credit of 1.5X the amount they paid
 	> tbd
@@ -57,9 +57,9 @@
 	> The function `initOracles` at line ` 79 - server.js` will receive an Array of accounts, fetched from web3 methods (`web3.eth.getAccounts`), my ganache is configured to start with 20 accounts, so this must be ensured to met this requirement
 	
 3. Oracle Updates - Update flight status requests from client Dapp result in OracleRequest event emitted by Smart Contract that is captured by server (displays on console and handled in code)
-	> The `server.js` implements at the line `115`  the `OracleRequest` event subscription. The Dapp code triggers this event passing the flight, airline and timestamp parameters for that flight, and then the assigned oracle deals with it.
+	> The `server.js` implements at the line `115`  the `OracleRequest` event subscription. The Dapp code triggers this event passing the flight, airline and timestamp parameters for that flight, and then the assigned oracle deals with it. The client implements the WebSocketsInterface in order to receive the `FlightStatusInfo - line 21 index.js`
 	
 4. Oracle Functionality - 	
 Server will loop through all registered oracles, identify those oracles for which the OracleRequest event applies, and respond by calling into FlightSuretyApp contract with random status code of Unknown (0), On Time (10) or Late Airline (20), Late Weather (30), Late Technical (40), or Late Other (50)
-	> This can be observed at `server.js line 125`, and its implementation was based on the previously existent test on `test/oracle.js`. A simple console.log of (`"found"` ) is implemented to indicate when an Oracle got assigned to respond	
+	> This can be observed at `server.js line 125`, and its implementation was based on the previously existent test on `test/oracle.js`. A simple console.log of (`"found"` ) is implemented to indicate when an Oracle got assigned to respond. The random Status code assignment can be noticed when the oracle detects a discrepancy on the timestamp and assign a random status code index within the delayed range to be assigned to the response	
    
