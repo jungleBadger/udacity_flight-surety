@@ -11,6 +11,8 @@ contract FlightSuretyData is Ownable {
     /********************************************************************************************/
 
     address[] multiCalls = new address[](0);
+    uint8 AIRLINE_LENGTH_LIMIT = 5;
+    bool isAirlineRegistrationOperational = true;
 
     address private contractOwner;                                      // Account used to deploy contract
     // In Solidity, all mappings always exist. "isRegistered" is a flag that can only be
@@ -221,21 +223,47 @@ contract FlightSuretyData is Ownable {
         require(!airlines[airline].isRegistered, "Airline already registered");
         if (airline != contractOwner) {
             require(airlines[owner].isRegistered, "Airline trying to add no exists");
-            if (enabledAirlines.length < 5) {
+            if (enabledAirlines.length < AIRLINE_LENGTH_LIMIT) {
                 require(airline != owner, "Under five airlines, an airline cannot register itself");
                 require(airlines[owner].ownership > 0, "Under five airlines, an airline without ownership cannot register other");
+
+                airlines[airline] = Airline({
+                    isRegistered: true,
+                    account: airline,
+                    ownership: 0
+                    });
+
+                emit RegisterAirline(airline);   // Log airline registration event
+
             } else {
-                //multi-party consensus
+
+                //Requirement #1
+                bool isDuplicate = false;
+                for(uint c=0; c<multiCalls.length; c++) {
+                    if (multiCalls[c] == sender) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                require(!isDuplicate, "Caller has already called this function.");
+
+                multiCalls.push(sender);
+                if (multiCalls.length >= (enabledAirlines.length.div(2))) {
+                    airlines[airline] = Airline({
+                        isRegistered: true,
+                        account: airline,
+                        ownership: 0
+                    });
+
+                    multiCalls = new address[](0);
+                    emit RegisterAirline(airline);   // Log airline registration event
+
+                }
             }
         }
 
-        airlines[airline] = Airline({
-            isRegistered: true,
-            account: airline,
-            ownership: 0
-        });
 
-        emit RegisterAirline(airline);   // Log airline registration event
     }
    /**
     * @dev Add an airline to the registration queue
@@ -376,8 +404,8 @@ contract FlightSuretyData is Ownable {
         bytes32 key = keccak256(abi.encodePacked(passenger, flight));
         uint256 currentFund = flightSurety[key];
         require(currentFund > 0, "There is no value to refund");
-        uint256 creditRate = currentFund.div(2);
-        uint256 amountToCredit = currentFund.add(creditRate);
+        //Requirement #2
+        uint256 amountToCredit = currentFund.mul(15).div(10);
         flightSurety[key] = amountToCredit;
         emit CreditInsured(passenger, flight, amountToCredit);
 
@@ -405,19 +433,18 @@ contract FlightSuretyData is Ownable {
      *  @dev Transfers eligible payout funds to insuree
      *
     */
-    function pay
+    //Requirement #3
+    function withdraw
                             (
-                            address passenger,
                             string flight,
                             uint256 amount
                             )
                             external
-                            payable
                             requireIsCallerAuthorized
                             requireIsOperational
     {
 
-        bytes32 key = keccak256(abi.encodePacked(passenger, flight));
+        bytes32 key = keccak256(abi.encodePacked(msg.sender, flight));
         uint256 value = flightSurety[key];
 
         require(value >= amount, "There is no sufficient value to withdraw");
