@@ -153,38 +153,38 @@ contract('Flight Surety Tests', async (accounts) => {
 
     });
 
-    it('(airline) can add other airlines after being funded', async () => {
-        let previousAirline = config.firstAirline;
-        let newAirline = accounts[1];
+    // it('(airline) can add other airlines after being funded', async () => {
+    //     let previousAirline = config.firstAirline;
+    //     let newAirline = accounts[1];
+    //
+    //     try {
+    //         await config.flightSuretyApp.registerAirline.sendTransaction(newAirline, {from: previousAirline});
+    //     }
+    //     catch(e) {}
+    //
+    //     let result = await config.flightSuretyApp.isAirline.call(newAirline);
+    //     assert.equal(result, true, "Airline should not be able to register another airline if it hasn't provided funding");
+    //
+    // });
 
-        try {
-            await config.flightSuretyApp.registerAirline.sendTransaction(newAirline, {from: previousAirline});
-        }
-        catch(e) {}
-
-        let result = await config.flightSuretyApp.isAirline.call(newAirline);
-        assert.equal(result, true, "Airline should not be able to register another airline if it hasn't provided funding");
-
-    });
-
-
-    it('(airline) can add up to complete 4 airlines without assuming consensus', async () => {
-        let previousAirline = config.firstAirline;
-        let newAirline2 = accounts[2];
-        let newAirline3 = accounts[3];
-
-        try {
-            await config.flightSuretyApp.registerAirline.sendTransaction(newAirline2, {from: previousAirline});
-            await config.flightSuretyApp.registerAirline.sendTransaction(newAirline3, {from: previousAirline});
-        }
-
-        catch(e) {}
-
-        let result = await config.flightSuretyApp.isAirline.call(newAirline2);
-        let result2 = await config.flightSuretyApp.isAirline.call(newAirline3);
-        assert.equal(result && result2, true, "Airline should not be able to register another airline if it hasn't provided funding");
-
-    });
+    //
+    // it('(airline) can add up to complete 4 airlines without assuming consensus', async () => {
+    //     let previousAirline = config.firstAirline;
+    //     let newAirline2 = accounts[2];
+    //     let newAirline3 = accounts[3];
+    //
+    //     try {
+    //         await config.flightSuretyApp.registerAirline.sendTransaction(newAirline2, {from: previousAirline});
+    //         await config.flightSuretyApp.registerAirline.sendTransaction(newAirline3, {from: previousAirline});
+    //     }
+    //
+    //     catch(e) {}
+    //
+    //     let result = await config.flightSuretyApp.isAirline.call(newAirline2);
+    //     let result2 = await config.flightSuretyApp.isAirline.call(newAirline3);
+    //     assert.equal(result && result2, true, "Airline should not be able to register another airline if it hasn't provided funding");
+    //
+    // });
 
     it(`(flight) passenger can buy more than 1 ether on surety for a flight`, async function () {
 

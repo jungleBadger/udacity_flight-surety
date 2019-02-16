@@ -236,11 +236,10 @@ contract FlightSuretyData is Ownable {
                 emit RegisterAirline(airline);   // Log airline registration event
 
             } else {
-
                 //Requirement #1
                 bool isDuplicate = false;
                 for(uint c=0; c<multiCalls.length; c++) {
-                    if (multiCalls[c] == sender) {
+                    if (multiCalls[c] == msg.sender) {
                         isDuplicate = true;
                         break;
                     }
@@ -248,7 +247,7 @@ contract FlightSuretyData is Ownable {
 
                 require(!isDuplicate, "Caller has already called this function.");
 
-                multiCalls.push(sender);
+                multiCalls.push(msg.sender);
                 if (multiCalls.length >= (enabledAirlines.length.div(2))) {
                     airlines[airline] = Airline({
                         isRegistered: true,
@@ -450,7 +449,7 @@ contract FlightSuretyData is Ownable {
         require(value >= amount, "There is no sufficient value to withdraw");
 
         flightSurety[key] = 0;
-        passenger.transfer(amount);
+        msg.sender.transfer(amount);
         flightSurety[key] = value.sub(amount);
     }
 
